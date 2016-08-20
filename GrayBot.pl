@@ -663,6 +663,20 @@ use open ':locale';
 
 
 
+  sub deleteUser {
+    my $self = shift;
+    $self->debug( 'Delete user : '.Dumper \@_ );
+    my $user = shift;
+
+    if ( defined $self->{'Game'}->{'users'}->{$nick} ) {
+      delete $self->{'Game'}->{'users'}->{$nick};
+      $self->say( channel => $self->{'actif'}, body => "$nick vient de disparaître. ):" );
+    }
+  }
+
+
+
+
   sub getRandPlayer {
     my $self = shift;
     my @players = keys( %{$self->{'Game'}->{'users'}} );
@@ -758,6 +772,9 @@ use open ':locale';
         $self->saveGame();
       }
       exit(0);
+    }
+    elsif ( $cmd eq 'delete' ) {
+      $self->userDelete($data);
     }
     elsif ( $cmd eq 'reload' ) {
       $self->loadGame();
