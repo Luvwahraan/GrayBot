@@ -666,7 +666,7 @@ use open ':locale';
   sub deleteUser {
     my $self = shift;
     $self->debug( 'Delete user : '.Dumper \@_ );
-    my $user = shift;
+    my $nick = shift;
 
     if ( defined $self->{'Game'}->{'users'}->{$nick} ) {
       delete $self->{'Game'}->{'users'}->{$nick};
