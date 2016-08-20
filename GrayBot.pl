@@ -1097,22 +1097,23 @@ use open ':locale';
 
 
 
+my $nick = shift @ARGV || 'Motion';
+my $channel = shift @ARGV || '#TestChan';
 
 package main;
 my $Bot = GrayBot->new(
     server    => 'irc.evolu7ion.fr',
     port      => '6667',
-    #channels  => ['#50NuancesD\'Aigri'],
-    #actif     => '#50NuancesD\'Aigri',
-    channels  => ['#testchan'],
-    actif     => '#testchan',
-
-    #nick      => 'Censure',
-    nick      => 'Motion',
+    channels  => [$channel],
+    actif     => $channel,
+    nick      => $nick,
     alt_nicks => ['Censure','Motsure'],
     username  => 'motsure',
     name      => 'Motion de censure',
     flood     => 1,
   );
+
+
+
 
 $Bot->run();
