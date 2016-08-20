@@ -260,7 +260,7 @@ use open ':locale';
 
   sub checkPassword {
     my $self = shift;
-    $self->debug("Nouveau joueur : ".Dumper \@_);
+    $self->debug('Vérification mod de passe : '.Dumper \@_, 8);
     my ($nick, $password) = @_;
     $nick = lc $nick;
 
