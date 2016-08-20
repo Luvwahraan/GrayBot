@@ -196,8 +196,7 @@ use open ':locale';
     $self->debug('Change password : '.Dumper \@_);
     my ($nick, $password, $newPassord) = @_;
 
-    if ( !defined $self->{'Game'}->{'users'}->{$nick}->{'password'} or checkPassword($nick, $password ){
-
+    if ( !defined $self->{'Game'}->{'users'}->{$nick}->{'password'} or checkPassword($nick, $password ) ) {
       $self->say( who => $nick, channel => 'msg', body => 'Effectivement, c’est toi.' );
     } else {
       $self->say( who => $nick, channel => 'msg', body => 'Mot de passe invalide.' );
@@ -248,7 +247,7 @@ use open ':locale';
     $self->debug('Wipe USER : '.Dumper \@_);
     my ($nick, $password, $newPassord) = @_;
 
-    if ( !defined $self->{'Game'}->{'users'}->{$nick}->{'password'} or checkPassword($nick, $password ){
+    if ( !defined $self->{'Game'}->{'users'}->{$nick}->{'password'} or checkPassword($nick, $password ) ){
       $self->newUser( $nick, $newPassord, 1 );
       $self->say( who => $nick, channel => 'msg', body => 'Effectivement, c’est toi.' );
     } else {
@@ -868,6 +867,7 @@ use open ':locale';
       $self->unidentUser($nick);
     }
     elsif ( $cmd =~ 'wipe' ) {
+      my ($password, $newPassord) = split (' ', $data);
       $self->wipeUser($nick, $password, $newPassord);
     }
     elsif ( $cmd =~ /help|aide/ ) {
@@ -1093,10 +1093,10 @@ package main;
 my $Bot = GrayBot->new(
     server    => 'irc.evolu7ion.fr',
     port      => '6667',
-    channels  => ['#50NuancesD\'Aigri'],
-    actif     => '#50NuancesD\'Aigri',
-    #channels  => ['#testchan'],
-    #actif     => '#testchan',
+    #channels  => ['#50NuancesD\'Aigri'],
+    #actif     => '#50NuancesD\'Aigri',
+    channels  => ['#testchan'],
+    actif     => '#testchan',
 
     #nick      => 'Censure',
     nick      => 'Motion',
