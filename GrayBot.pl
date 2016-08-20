@@ -65,6 +65,7 @@ use open ':locale';
 
 
 
+
   sub loadGame {
     my ($self) = shift;
 
@@ -105,7 +106,7 @@ use open ':locale';
             'spymode'     => 1,
             'debug'       => 20,
             },
-        'freezed' => {},
+        'tick'    => 300, # 5 minutes
         'action'  => 0,
         'masters' => ['Luvwahraan'],
         'combat'  => [],
@@ -775,6 +776,13 @@ use open ':locale';
       $self->debug('Toggle spymode', 10);
       $self->toggleSpyMode();
     }
+    elsif ( $cmd eq 'tick' ) {
+      $self->debug('Change tick', 10);
+      if ( $data =~ /(\d+)/ ) {
+        $self->{'Game'}->{'config'}->{'tick'} = $1;
+        $self->say( channel => 'msg', who => $nick, body => "Tick défini à $1.");
+      }
+    }
     elsif ( $cmd eq 'say' ) {
       if ( defined $data) {
         $self->debug("BotMSG $data", 5);
@@ -1066,6 +1074,7 @@ use open ':locale';
 
   sub tick {
     my $self = shift;
+    my $tick = $self->{'Game'}->{'config'}->{'tick'} || 300
 
     # Sauvegarde auto, s’il y a eu du changement.
     if (( defined $self->{'Game'}->{'config'}->{'action'} and $self->{'Game'}->{'config'}->{'action'} > 0)
@@ -1081,7 +1090,7 @@ use open ':locale';
       $self->{'Game'}->{'users'}->{$nick}->{'alcoolisme'}-- if ( $self->getAlcoolisme($nick) );
     }
 
-    return 10; # Attend 5 minutes
+    return $tick; # Attend 5 minutes
   }
 
 }
