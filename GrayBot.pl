@@ -197,6 +197,7 @@ use open ':locale';
     my ($nick, $password, $newPassord) = @_;
 
     if ( !defined $self->{'Game'}->{'users'}->{$nick}->{'password'} or checkPassword($nick, $password ) ) {
+      $password = $self->validPassword($nick, $newPassord);
       $self->say( who => $nick, channel => 'msg', body => 'Effectivement, c’est toi.' );
     } else {
       $self->say( who => $nick, channel => 'msg', body => 'Mot de passe invalide.' );
@@ -249,7 +250,6 @@ use open ':locale';
 
     if ( !defined $self->{'Game'}->{'users'}->{$nick}->{'password'} or checkPassword($nick, $password ) ){
       $self->newUser( $nick, $newPassord, 1 );
-      $self->say( who => $nick, channel => 'msg', body => 'Effectivement, c’est toi.' );
     } else {
       $self->say( who => $nick, channel => 'msg', body => 'Mot de passe invalide.' );
     }
