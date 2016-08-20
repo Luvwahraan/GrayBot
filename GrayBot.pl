@@ -1074,7 +1074,7 @@ use open ':locale';
 
   sub tick {
     my $self = shift;
-    my $tick = $self->{'Game'}->{'config'}->{'tick'} || 300
+    my $tick = $self->{'Game'}->{'config'}->{'tick'} || 300;
 
     # Sauvegarde auto, s’il y a eu du changement.
     if (( defined $self->{'Game'}->{'config'}->{'action'} and $self->{'Game'}->{'config'}->{'action'} > 0)
