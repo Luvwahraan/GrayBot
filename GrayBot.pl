@@ -550,7 +550,7 @@ use open ':locale';
         }
         $self->emote(
           channel => $self->{'actif'},
-          body    => 'sert '.$drink.' à '.$nick.'. Ça fera '.$self->{'Game'}->{'bar'}->{$drink}.'G.'
+          body    => 'sert '.$drink.' à '.$target.'. Ça fera '.$self->{'Game'}->{'bar'}->{$drink}.'G.'
         );
       } else {
         $self->{'Game'}->{'users'}->{$nick}->{'alcoolisme'} += $self->{'Game'}->{'bar'}->{$drink} - 1;
