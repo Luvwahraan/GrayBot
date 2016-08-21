@@ -1,4 +1,20 @@
 #!/usr/bin/env perl
+#
+#    This file is part of GrayBot.
+#
+#    GrayBot is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    GrayBot is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with GrayBot.  If not, see <http://www.gnu.org/licenses/>.
+#
 
 use warnings;
 use strict;
@@ -606,15 +622,11 @@ use open ':locale';
 
 
 
-  sub toggleDebugMode {
+  sub setDebug {
     my $self = shift;
+    my $nb = $data || 0;
 
-    if ( defined $self->{'Game'}->{'config'}->{'debug'} and
-        $self->{'Game'}->{'config'}->{'debug'} == 1 ) {
-      $self->{'Game'}->{'config'}->{'debug'} = 0;
-    } else {
-      $self->{'Game'}->{'config'}->{'debug'} = 1;
-    }
+    $self->{'Game'}->{'config'}->{'debug'} = $data;
 
     # Témoins pour la sauvegarde auto.
     $self->{'Game'}->{'config'}->{'action'} = 1;
@@ -786,8 +798,11 @@ use open ':locale';
       $self->part($data);
     }
     elsif ( $cmd eq 'debug' ) {
-      $self->debug('Toggle debugmode', 10);
-      $self->toggleDebugMode();
+      if ( $data =~ /\d+/ ) {
+        $self->debug('Toggle debugmode', 10);
+        $self->setDebug($data);
+      }
+
     }
     elsif ( $cmd eq 'spymode' ) {
       $self->debug('Toggle spymode', 10);
